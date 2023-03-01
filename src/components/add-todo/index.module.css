@@ -1,0 +1,8 @@
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.addButton {
+  margin-left: 0.5rem;
+}

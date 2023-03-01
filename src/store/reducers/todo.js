@@ -1,4 +1,4 @@
-import { ADD_TODO, TOGGLE_TODO } from "../actions/types/todo";
+import { ADD_TODO, TOGGLE_TODO,REMOVE_TODO } from "../actions/types/todo";
 
 // 1.
 const initialState = {
@@ -48,9 +48,25 @@ export default function todoReducer(state = initialState, action) {
         },
       };
 
+    }  
+  
+    case REMOVE_TODO: {
+      const { id } = action.payload;
+
+      return {
+        ...state,
+        byIds: {
+          ...state.byIds,
+          [id]: null,
+        },
+        allIds: state.allIds.filter((current) => current !== id),
+      };
     }
 
     default:
       return state;
   }
 }
+
+
+  
