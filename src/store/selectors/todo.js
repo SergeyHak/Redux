@@ -10,6 +10,7 @@ export const todoByIdSelector = (store, id) => {
   }
 
   const todoItem = todoStore.byIds[id];
+  console.log(todoStore.byIds[id])
 
   return {
     ...todoItem,

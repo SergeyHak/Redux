@@ -1,20 +1,21 @@
-import { ADD_TODO, TOGGLE_TODO,REMOVE_TODO } from "../actions/types/todo";
+import {
+  ADD_TODO,
+  TOGGLE_TODO,
+  REMOVE_TODO,
+  REMOVE_ALL_TODO,
+  FILTER_TODO,  
+} from "../actions/types/todo";
 
-// 1.
 const initialState = {
   allIds: [],
   byIds: {},
 };
 
-// 2.
 export default function todoReducer(state = initialState, action) {
   switch (action.type) {
-    // 3.
     case ADD_TODO: {
-      // 4.
       const { id, content } = action.payload;
 
-      // 5.
       return {
         ...state,
 
@@ -47,9 +48,8 @@ export default function todoReducer(state = initialState, action) {
           },
         },
       };
+    }
 
-    }  
-  
     case REMOVE_TODO: {
       const { id } = action.payload;
 
@@ -62,11 +62,34 @@ export default function todoReducer(state = initialState, action) {
         allIds: state.allIds.filter((current) => current !== id),
       };
     }
+    case REMOVE_ALL_TODO: {
+      const { id } = action.payload;
+
+      return {
+        ...state,
+        byIds: {
+          ...state.byIds,
+          [id]: null,
+        },
+        allIds: state.allIds.filter((current) => current === ""),
+      };
+    }
+
+    case FILTER_TODO: {
+      const { id } = action.payload;
+
+      return {
+        ...state,
+        byIds: {
+          ...state.byIds,
+          [id]: {
+            complete: true,
+          },
+        },
+      };
+    }
 
     default:
       return state;
   }
 }
-
-
-  
